@@ -17,6 +17,9 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+	name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+	processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #include <stdio.h>
 #ifdef _WIN32
@@ -639,9 +642,9 @@ void UpdateCaption(HWND hwndDlg)
   if (!g_cap_state) 
   {
 #ifdef REAPER_LICECAP
-    SetWindowText(hwndDlg,"REAPER_LICEcap " LICECAP_VERSION " [stopped]");
+    SetWindowText(hwndDlg,"REAPER_LICEcap " LICECAP_VERSION " [已停止]");
 #else
-    SetWindowText(hwndDlg,"LICEcap " LICECAP_VERSION " [stopped]");
+    SetWindowText(hwndDlg,"LICEcap " LICECAP_VERSION " [已停止]");
 #endif
   }
   else
@@ -655,11 +658,11 @@ void UpdateCaption(HWND hwndDlg)
       DWORD now=timeGetTime();
       if (now < g_cap_prerolluntil)
       {
-        snprintf(pbuf,sizeof(pbuf),"PREROLL: %d - ",(g_cap_prerolluntil-now+999)/1000);
+        snprintf(pbuf,sizeof(pbuf),"倒计时: %d - ",(g_cap_prerolluntil-now+999)/1000);
       }
       else g_cap_prerolluntil=0;
     }
-    snprintf(buf,sizeof(buf),"%s%.100s - LICEcap%s",pbuf,p,pbuf[0]?"":g_cap_state==1?" [recording]":" [paused]");
+    snprintf(buf,sizeof(buf),"%s%.100s - LICEcap%s",pbuf,p,pbuf[0]?"":g_cap_state==1?" [录制中]":" [已暂停]");
     SetWindowText(hwndDlg,buf);
   }
 }
@@ -690,7 +693,7 @@ void SWELL_SetWindowResizeable(HWND, bool);
 
 void Capture_Finish(HWND hwndDlg)
 {
-  SetDlgItemText(hwndDlg,IDC_REC,"Record...");
+  SetDlgItemText(hwndDlg,IDC_REC,"录制...");
   EnableWindow(GetDlgItem(hwndDlg,IDC_STOP),0);
 
   if (g_cap_state)
@@ -1025,7 +1028,7 @@ WDL_DLGRET InsertProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
     case WM_INITDIALOG :
 		  {
         char buf[256];
-        sprintf(buf,"Insert (%d)",g_insert_cnt);
+        sprintf(buf,"插入 (%d)",g_insert_cnt);
         SetDlgItemText(hwnd,IDOK,buf);
         snprintf(buf, sizeof(buf), "%.1f", (double)g_insert_ms/1000.0);
         SetDlgItemText(hwnd, IDC_MS, buf);
@@ -1061,7 +1064,7 @@ WDL_DLGRET InsertProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
             GetDlgItemText(hwnd,IDC_EDIT,buf,4096);
 				    WriteTextFrame(buf,g_insert_ms,g_insert_alpha<0,g_cap_bm_txt->getWidth(),g_cap_bm_txt->getHeight(), g_insert_alpha >=0 ? g_insert_alpha : 1.0f);
 				    g_insert_cnt++;
-				    sprintf(buf,"Insert (%d)",g_insert_cnt);
+				    sprintf(buf,"插入 (%d)",g_insert_cnt);
             SetDlgItemText(hwnd,IDOK,buf);
             SetDlgItemText(hwnd,IDC_EDIT,"");
             SetFocus(GetDlgItem(hwnd,IDC_EDIT));
@@ -1524,12 +1527,12 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
           {
             //g_title[0]=0;
             const char *tab[][2]={
-              { "GIF files (*.gif)\0*.gif\0", ".gif" },
+              { "GIF 文件 (*.gif)\0*.gif\0", ".gif" },
             #ifndef NO_LCF_SUPPORT
-              { "LiceCap files (*.lcf)\0*.lcf\0", ".lcf" },
+              { "LiceCap 文件 (*.lcf)\0*.lcf\0", ".lcf" },
             #endif
             #ifdef VIDEO_ENCODER_SUPPORT
-              { "WEBM files (*.webm)\0*.webm\0", ".webm" },
+              { "WEBM 文件 (*.webm)\0*.webm\0", ".webm" },
             #endif
               {NULL,NULL},
             };
@@ -1715,7 +1718,7 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
 #endif
 #endif
 
-                SetDlgItemText(hwndDlg,IDC_REC,"[pause]");
+                SetDlgItemText(hwndDlg,IDC_REC,"[暂停]");
                 EnableWindow(GetDlgItem(hwndDlg,IDC_STOP),1);
 
                 g_frate_valid=false;
@@ -1735,7 +1738,7 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
             g_pause_time = timeGetTime();
             ShowWindow(GetDlgItem(hwndDlg, IDC_INSERT), SW_SHOWNA);
             ShowWindow(GetDlgItem(hwndDlg,IDC_STATUS),SW_HIDE);
-            SetDlgItemText(hwndDlg,IDC_REC,"[unpause]");
+            SetDlgItemText(hwndDlg,IDC_REC,"[继续]");
             g_cap_state=2;
             UpdateCaption(hwndDlg);
             UpdateStatusText(hwndDlg);
@@ -1747,7 +1750,7 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
             g_insert_cnt=0;
             ShowWindow(GetDlgItem(hwndDlg,IDC_STATUS),SW_SHOWNA);
             ShowWindow(GetDlgItem(hwndDlg, IDC_INSERT), SW_HIDE);
-            SetDlgItemText(hwndDlg,IDC_REC,"[pause]");
+            SetDlgItemText(hwndDlg,IDC_REC,"[暂停]");
             g_last_frame_capture_time = g_cap_prerolluntil=timeGetTime()+PREROLL_AMT;
             g_cap_state=1;
             UpdateCaption(hwndDlg);
@@ -1819,8 +1822,8 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
        
 
 #ifdef _WIN32
-				RECT r,r2;
-				GetWindowRect(hwndDlg,&r);
+		RECT r,r2;
+		GetWindowRect(hwndDlg,&r);
         GetWindowRect(GetDlgItem(hwndDlg,IDC_VIEWRECT),&r2);
 
         r.right-=r.left;
@@ -1841,8 +1844,8 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
         HRGN rgn3=CreateRectRgn(0,0,0,0);
         CombineRgn(rgn3,rgn,rgn2,RGN_DIFF);
 
-			  DeleteObject(rgn);
-		    DeleteObject(rgn2);
+		DeleteObject(rgn);
+		DeleteObject(rgn2);
         SetWindowRgn(hwndDlg,rgn3,TRUE);
 #endif
         UpdateDimBoxes(hwndDlg);
