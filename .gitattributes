@@ -1,0 +1,6 @@
+# git gui - can it be made to display UTF16?
+#> https://stackoverflow.com/questions/3915072/git-gui-can-it-be-made-to-display-utf16
+
+
+"/licecap/licecap.rc" filter=mixedtext-utf16
+"/licecap/licecap_ui.cpp" filter=mixedtext-utf16

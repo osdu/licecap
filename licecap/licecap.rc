@@ -1,4 +1,4 @@
-// Microsoft Visual C++ generated resource script.
+﻿// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -55,13 +55,13 @@ BEGIN
     EDITTEXT        IDC_TITLE,105,8,208,35,ES_MULTILINE | ES_WANTRETURN
     CONTROL         "大字体",IDC_BIGFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,47,37,10
     PUSHBUTTON      "WEBM 选项...",IDC_BUTTON1,238,77,75,14
-    CONTROL         "Control+Alt+P 暂停录制",IDC_SSPAUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,63,115,10
+    CONTROL         "Control + Alt + P 暂停录制",IDC_SSPAUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,140,63,115,10
     LTEXT           "GIF 回放次数 (0=无限):",IDC_STATIC,0,63,92,8
-    EDITTEXT        IDC_LOOPCNT,92,61,26,13,ES_AUTOHSCROLL
-    CONTROL         "优化 GIF 透明度使文件变小",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,78,108,10
-    CONTROL         "在指定时间后停止录制",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,2,78,87,10
-    EDITTEXT        IDC_STOPAFTER_SEC,92,77,26,13,ES_AUTOHSCROLL
-    LTEXT           "秒",IDC_STOPAFTER_SEC_LBL,120,79,8,8
+    EDITTEXT        IDC_LOOPCNT,97,61,26,13,ES_AUTOHSCROLL
+    CONTROL         "优化 GIF 透明度使文件变小",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,140,78,108,10
+    CONTROL         "在指定时间后停止录制",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,0,78,92,10
+    EDITTEXT        IDC_STOPAFTER_SEC,97,77,26,13,ES_AUTOHSCROLL
+    LTEXT           "秒",IDC_STOPAFTER_SEC_LBL,125,79,8,8
 END
 
 IDD_INSERT DIALOGEX 0, 0, 281, 122
@@ -169,8 +169,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,3,0,0
- PRODUCTVERSION 1,3,0,0
+ FILEVERSION 1,3,1,0
+ PRODUCTVERSION 1,3,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -186,12 +186,12 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "FileDescription", "LICEcap"
-            VALUE "FileVersion", "1.3.0.0"
+            VALUE "FileVersion", "1.3.1.0"
             VALUE "InternalName", "licecap.exe"
             VALUE "LegalCopyright", "Copyright (C) 2017"
             VALUE "OriginalFilename", "licecap.exe"
             VALUE "ProductName", "LICEcap"
-            VALUE "ProductVersion", "1.3.0.0"
+            VALUE "ProductVersion", "1.3.1.0"
         END
     END
     BLOCK "VarFileInfo"

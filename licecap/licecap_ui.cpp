@@ -1,4 +1,4 @@
-/*
+﻿/*
     LICEcap
     Copyright (C) 2010 Cockos Incorporated
 
@@ -826,7 +826,7 @@ static UINT_PTR CALLBACK SaveOptsProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPA
       snprintf(buf, sizeof(buf), "%.1f", (double)g_stop_after_msec/1000.0);
       SetDlgItemText(hwndDlg, IDC_STOPAFTER_SEC, buf);
 
-      SetDlgItemText(hwndDlg, IDC_TITLE, (g_title[0] ? g_title : "Title"));
+      SetDlgItemText(hwndDlg, IDC_TITLE, (g_title[0] ? g_title : "标题"));
       EnableWindow(GetDlgItem(hwndDlg, IDC_MS), (g_prefs&1));
       EnableWindow(GetDlgItem(hwndDlg, IDC_BIGFONT), (g_prefs&1));
       EnableWindow(GetDlgItem(hwndDlg, IDC_TITLE), (g_prefs&1));
@@ -855,7 +855,7 @@ static UINT_PTR CALLBACK SaveOptsProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPA
       g_stop_after_msec=(int) (atof(buf)*1000.0);
 
       GetDlgItemText(hwndDlg, IDC_TITLE, g_title, sizeof(g_title));
-      if (!strcmp(g_title, "Title")) g_title[0]=0;
+      if (!strcmp(g_title, "标题")) g_title[0]=0;
 
       {
         BOOL t=FALSE;
@@ -1573,7 +1573,7 @@ static WDL_DLGRET liceCapMainProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM
 
             qb.Add("",1);
 
-            if (WDL_ChooseFileForSave(hwndDlg, "Choose file for recording", NULL, g_last_fn,
+            if (WDL_ChooseFileForSave(hwndDlg, "选择录制文件保存位置", NULL, g_last_fn,
               (char*)qb.Get(), tab[bm][1] + 1, false, g_last_fn, sizeof(g_last_fn),
               MAKEINTRESOURCE(IDD_SAVEOPTS),(void*)SaveOptsProc, 
 #ifdef _WIN32
